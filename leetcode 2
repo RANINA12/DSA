@@ -1,0 +1,38 @@
+class Solution {
+    public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+        int rem=0,carry=0;
+       ListNode dummy = new ListNode(0); 
+       ListNode current = dummy;
+        int val1 ,val2;
+      for(int i = 0 ; i<100 ;i++){
+        if(l1 != null){
+            val1 = l1.val;
+            l1 =l1.next;
+            // head point to next node
+        }
+        else{val1=0;}
+        if(l2 != null){
+            val2 = l2.val;
+            l2 =l2.next;
+            //head point to next node
+        }
+        else{val2=0;}
+
+        //add
+        int x = val1+val2+carry;
+        rem = x%10;
+        carry = x/10;
+        current.next = new ListNode(rem); // link new node
+        current = current.next;
+
+        if(l2 == null && l1==null && carry==0){
+            break;
+        }
+        
+      }
+    return dummy.next;
+
+    }
+
+   
+}
