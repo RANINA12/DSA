@@ -1,0 +1,30 @@
+class Solution {
+
+    public int plaindromelength(int left , int right  , String s){
+  
+      
+       int l = left ; int r = right;
+        while(l>=0 && r<s.length()&& String.valueOf(s.charAt(r)).equals(String.valueOf(s.charAt(l)))){
+          
+            // System.out.println("inside function length "+" "+length);
+             l--;
+            r++;
+        }
+        //   System.out.println("I am return the length" + length);
+         return r-l-1;
+    }
+    public String longestPalindrome(String a) {
+    
+      int start=0; 
+       int end= 0;
+     for(int i =0 ; i<a.length();i++){
+       int len1 = plaindromelength(i,i,a);
+       int len2 = plaindromelength(i,i+1,a);
+       int len = Math.max(len1,len2);
+       if(len>(end-start)){
+        start =i-((len-1)/2);
+        end= i+(len/2);
+       }
+     }
+     return a.substring(start, end+1);
+}}
