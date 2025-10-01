@@ -1,0 +1,25 @@
+class Solution {
+    public boolean isPalindrome(int x) {
+        int rem , reverse=0;
+        int y = x;
+        if(x<0){
+            return false;
+        }
+        else{
+        while(x!=0){
+            rem=x%10;
+            reverse= reverse*10+rem;
+            // if(reverse >Integer.MAX_VALUE/10 || (reverse==Integer.MAX_VALUE/10 && rem>7)) return false;
+            // if(reverse <Integer.MIN_VALUE/10 || (reverse==Integer.MAX_VALUE/10 && rem<-8)) return false;
+            x=x/10;
+            System.out.println(reverse);
+        }
+        if(y==reverse){
+            return true;
+        }
+        else{
+            return false;
+        }
+        }
+    }
+}
