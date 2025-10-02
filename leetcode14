@@ -1,0 +1,38 @@
+class Solution {
+    public String longestCommonPrefix(String[] strs) {
+
+        // first find the length of largest length  of string 
+        int minlength =Integer.MAX_VALUE;
+        for(int i =0 ; i<strs.length; i++){
+            int length = strs[i].length();
+            if(minlength>length){
+                minlength=length;
+            }
+        }
+
+        // as we get the max length now we can find the solution 
+         int count =0;
+         String  result = "";
+        for(int  i =0; i<minlength ; i++){
+           char ch = strs[0].charAt(i);
+           for(int j = 0 ; j<strs.length ; j++){
+            if(ch == strs[j].charAt(i)){
+                count++;
+            }
+           
+           }
+            if(count==strs.length){
+                // yes return string 
+                result = result+strs[0].charAt(i);
+                count = 0;
+            }
+            else{
+                break;
+            }
+        }
+        return result;
+    }
+     
+  
+
+}
