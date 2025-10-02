@@ -1,0 +1,25 @@
+class Solution {
+    public int threeSumClosest(int[] arr, int target) {
+      int maximum = Integer.MAX_VALUE;
+       Arrays.sort(arr);
+        int close;
+        int answer = 0;
+        for (int i = 0; i < arr.length; i++) {
+            for (int j = i + 1; j < arr.length; j++) {
+                for (int k = j + 1; k < arr.length; k++) {
+                    int sum = arr[i] + arr[j] + arr[k];
+                   close = Math.abs(target-sum);
+                    if (maximum >= close) {
+                        answer = sum;
+                        maximum = close;
+                        // System.out.println(answer);
+
+                    }
+                }
+            }
+        }
+        System.out.println(answer);
+        return  answer;
+
+    }
+}
