@@ -1,0 +1,27 @@
+class Solution {
+    public boolean isValid(String s) {
+        Stack<String> st = new Stack<>();
+
+        HashMap<String , String> map=  new HashMap<>();
+        map.put(")","(");
+         map.put("}","{");
+         map.put("]","[");
+        boolean  isValid = true; 
+        for(int i=0 ; i<s.length();i++){
+            char ch = s.charAt(i);
+            if(ch=='('|| ch=='{'|| ch=='['){
+                   st.push(String.valueOf(ch));
+            }
+            else{
+ if (st.isEmpty() || (st.peek() == null ? map.get(String.valueOf(ch)) != null : !st.peek().equals(map.get(String.valueOf(ch))))) {
+                    isValid= false;
+                    break;
+                }
+                else{
+                    st.pop();
+                }
+            }}
+        if(!st.isEmpty()){isValid = false;}
+        return isValid;
+    
+}}
