@@ -1,0 +1,44 @@
+class Solution {
+   public boolean issafe(int row, int col, char[][] board, char digit) {
+    // row check
+    for(int j = 0; j < 9; j++) {
+        if(j != col && board[row][j] == digit)
+            return false;
+    }
+
+    // col check
+    for(int i = 0; i < 9; i++) {
+        if(i != row && board[i][col] == digit)
+            return false;
+    }
+
+    // 3x3 grid check
+    int sr = (row / 3) * 3;
+    int sc = (col / 3) * 3;
+    for(int m = sr; m < sr + 3; m++) {
+        for(int n = sc; n < sc + 3; n++) {
+            if(m == row && n == col) continue; 
+            if(board[m][n] == digit)
+                return false;
+        }
+    }
+
+    return true;
+}
+
+    public boolean isValidSudoku(char[][] board) {
+        
+       boolean ans = true;
+        for(int i =0 ; i<9 ; i++){
+            for(int j =0 ;j<9 ;j++){
+                if(board[i][j]!='.'){
+                   ans = issafe(i,j,board,board[i][j]);
+                }
+                if(ans==false){
+                    return false; 
+                }
+            }
+        }
+        return ans;
+    }
+}
