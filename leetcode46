@@ -1,0 +1,33 @@
+class Solution {
+
+    public static void swap(int[] arr, int n, int m) {
+        int temp = arr[n];
+        arr[n] = arr[m];
+        arr[m] = temp;
+
+    }
+
+    public static List<List<Integer>> permutation(int[] arr, int index) {
+        List<List<Integer>> store = new ArrayList<>();
+        // Base condition 
+        if (index == arr.length) {
+            List<Integer> current = new ArrayList<>();
+
+            // add karna hai list mein 
+            for (int num : arr) {
+                current.add(num);
+            }
+            store.add(new ArrayList<>(current));
+            return store;
+        }
+        for (int i = index; i < arr.length; i++) {
+            swap(arr, i, index);
+            store.addAll(permutation(arr, index + 1));
+            swap(arr, i, index);
+        }
+        return store;
+    }
+    public List<List<Integer>> permute(int[] nums) {
+         return permutation(nums ,0);
+    }
+}
