@@ -1,0 +1,17 @@
+class Solution {
+    private void solve(int index , int []nums ,List<List<Integer>> Ans , List<Integer>list){
+            Ans.add(new ArrayList<>(list));
+               for(int i = index ; i<nums.length ; i++){
+            if(i!=index && nums[i]==nums[i-1]) continue;
+            list.add(nums[i]);
+            solve(i+1 , nums , Ans,list);
+            list.remove(list.size()-1);
+        }
+    }
+    public List<List<Integer>> subsetsWithDup(int[] nums) {
+        List<List<Integer>> Ans = new ArrayList<>();
+           Arrays.sort(nums);
+        solve(0, nums , Ans , new ArrayList<>());
+        return Ans;
+    }
+}
