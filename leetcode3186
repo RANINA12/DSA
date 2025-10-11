@@ -1,0 +1,48 @@
+class Solution {
+    private long  solve(HashMap<Integer , Integer> map , List<Integer> list , int index ,long []dp ){
+
+        //base condition                       
+        if(list.size()<=index){
+            return 0;
+        }
+           
+        if(dp[index]!=-1){
+            return dp[index];
+        }
+         //no pick
+    
+         long notpick = solve(map , list , index+1 ,dp);
+           
+         //pick
+        int num = list.get(index);
+        int in =Collections.binarySearch(list ,num+3);
+        if(in<0){
+            in = -in-1;
+        }
+        long pick = (long) map.get(num)*num + solve(map,list,in ,dp);
+
+        return dp[index] = Math.max(pick , notpick);
+
+    }
+    public long maximumTotalDamage(int[] power) {
+        Arrays.sort(power);
+        HashMap<Integer , Integer> map = new HashMap<>();
+        List<Integer> list = new ArrayList<>();
+        for(int num: power){
+            if(map.containsKey(num)){
+                int oldvalue = map.get(num);
+                map.put(num , oldvalue+1);
+            }
+            else{
+                map.put(num,1);
+                list.add(num);
+            }
+        }
+
+        long [] dp = new long[list.size()];
+
+        Arrays.fill(dp ,-1);
+    
+        return solve(map , list , 0,dp);
+    }
+}
