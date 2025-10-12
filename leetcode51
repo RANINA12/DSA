@@ -1,0 +1,61 @@
+class Solution {
+     public  boolean isSafe(int row, int col, char[][] board , int n) {
+        for (int j = 0; j < row; j++) {
+            if (board[j][col] == 'Q') {
+                return false;
+            }
+        }
+        int colcheck = col;
+        int rowcheck = row;
+        while (rowcheck >= 0 && colcheck >= 0) {
+            if (board[rowcheck][colcheck] == 'Q') {
+                return false;
+            }
+            rowcheck--;
+            colcheck--;
+        }
+        colcheck = col;
+        rowcheck = row;
+        while (rowcheck >= 0 && colcheck <= n-1) {
+            if (board[rowcheck][colcheck] == 'Q') {
+                return false;
+            }
+            rowcheck--;
+            colcheck++;
+        }
+        return true;
+    }
+
+     private List<String> construct(char[][] board) {
+        List<String> path = new ArrayList<>();
+        for (char[] row : board) {
+            path.add(new String(row)); 
+        }
+        return path;
+    }
+
+    public void helper(char[][] board, int row , int n, int Rindex , List<List<String>> Ans) {
+        if (row == n) {
+           Ans.add(construct(board));
+           return;
+        }
+        for (int i = Rindex; i < n; i++) {
+            if (isSafe(row, i, board,n)) {
+                board[row][i] = 'Q';
+                helper(board, row + 1,n,0,Ans) ;
+                board[row][i] = '.';
+            }
+        }
+    }
+        public List<List<String>> solveNQueens(int n) {
+        List<List<String>> Ans = new ArrayList<>();
+         char [][] board = new char[n][n]  ;
+          for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                board[i][j] = '.';
+            }
+        }
+       helper(board,0,n,0,Ans);
+        return Ans;
+}
+}
