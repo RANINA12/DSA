@@ -1,0 +1,23 @@
+class Solution {
+    public boolean hasIncreasingSubarrays(List<Integer> nums, int k) {
+        if(k==1) return true;
+        for(int i = 0 ; i<=nums.size()-2*k ; i++){
+            int count  =0;
+            List<Integer> p1 = nums.subList(i,i+k);
+            List<Integer> p2 = nums.subList(i+k,i+2*k);
+            //check in all element of p1 is grater or not 
+            for(int j = 0 ;j<p1.size()-1 ; j++){
+               if(p1.get(j)<p1.get(j+1)) count++;             
+               else break;
+            }
+            //check all element in  p2 is greater or not
+            for(int j = 0 ; j<p2.size()-1 ;j++){
+                if(p2.get(j)<p2.get(j+1)) count++;
+                else break;
+            }
+            if(count==2*k-2) return true;
+        }
+        return false;
+    }
+}
+
