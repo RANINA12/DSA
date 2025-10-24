@@ -1,0 +1,31 @@
+class Solution {
+    public int nextBeautifulNumber(int n) {
+        int b = n + 1;
+
+        while (true) {
+            int c = b;
+            int[] arr = new int[10];
+
+            // Count digit frequencies
+            while (c > 0) {
+                int a = c % 10;
+                arr[a]++;
+                c /= 10;
+            }
+
+            boolean isBeautiful = true;
+            for (int i = 0; i < 10; i++) {
+                if (arr[i] != 0 && arr[i] != i) {
+                    isBeautiful = false;
+                    break;
+                }
+            }
+
+            if (isBeautiful) {
+                return b;
+            }
+
+            b++;
+        }
+    }
+}
