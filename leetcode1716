@@ -1,0 +1,29 @@
+class Solution {
+    public int totalMoney(int n) {
+   
+        int ans = 0;
+        int start = n > 7 ? 7 : n;
+        int b = (int) Math.ceil((double) n / 7);
+        int prev = 0;
+        // we have to 
+        // 1 , 2 , 3 
+
+        for (int i = 0; i < b; i++) {
+            //System.out.println("here is your start" + start);
+            // System.out.println("here is your prev" + prev);
+            ans = ans + (start * (start + 1) / 2) - (prev * (prev + 1) / 2);
+            n = n > 7 ? n - 7 : n;
+            if (n > 7) {
+                // ehre what to 
+                start++;
+                prev++;
+            } else {
+                //System.err.println("here is  n " + n);
+                start = start + 1 - (7 - n);
+                prev++;
+            }
+
+        }
+        return ans;
+    }
+}
