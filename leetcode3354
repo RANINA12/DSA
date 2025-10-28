@@ -1,0 +1,61 @@
+class Solution {
+    private boolean allZero(int arr[]){
+  boolean allZero = true;
+        for (int num : arr) {
+            if (num != 0) {
+               return false;
+            }           
+        }
+         return allZero;
+    }
+    private int solve(int[] arr , int index  , int movement){
+
+        if(movement == 1 && index==arr.length-1){
+if(allZero(arr)){
+              return 1;
+           }
+           else{
+            return 0;
+           }
+        }
+        if(movement ==-1 && index==0){
+         if(allZero(arr)){
+              return 1;
+           }
+           else{
+            return 0;
+           }
+        }       
+            while (index >= 0 && index <= arr.length - 1) {
+            int next = index + movement;
+            if (next < 0 || next >= arr.length) {
+                break;
+            }
+            if (arr[next] == 0) {
+                index = next;
+            } else {
+                arr[next]--;
+                movement = movement == 1 ? -1 : 1;
+            }
+        }
+           if(allZero(arr)){
+              return 1;
+           }
+           else{
+            return 0;
+           }
+    }
+    public int countValidSelections(int[] nums) {
+        int ans = 0;
+        for(int i =0 ; i<nums.length ;i++){
+            if (nums[i] == 0) {
+                int[] copyR = Arrays.copyOf(nums, nums.length);
+                int r = solve(copyR, i, 1);
+                int[] copyL = Arrays.copyOf(nums, nums.length);
+                int l = solve(copyL, i, -1);
+                ans += r + l;
+            }
+        }
+        return ans ;
+    }
+}
