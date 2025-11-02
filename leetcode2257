@@ -1,0 +1,56 @@
+class Solution {
+    private void guardseen1(int[][] arr, int currRow, int currCol, int rowL, int colL) {
+        // Up
+        int row = currRow - 1;
+        while (row >= 0 && arr[row][currCol] != 1 && arr[row][currCol] != 2) {
+            arr[row][currCol] = 3;
+            row--;
+        }
+
+        // Down
+        row = currRow + 1;
+        while (row < rowL && arr[row][currCol] != 1 && arr[row][currCol] != 2) {
+            arr[row][currCol] = 3;
+            row++;
+        }
+
+        // Left
+        int col = currCol - 1;
+        while (col >= 0 && arr[currRow][col] != 1 && arr[currRow][col] != 2) {
+            arr[currRow][col] = 3;
+            col--;
+        }
+
+        // Right
+        col = currCol + 1;
+        while (col < colL && arr[currRow][col] != 1 && arr[currRow][col] != 2) {
+            arr[currRow][col] = 3;
+            col++;
+        }
+    }
+
+    private void guardseen(int[][] arr, int[][] guards, int[][] walls, int rowL, int colL) {
+        for (int[] wall : walls) {
+            arr[wall[0]][wall[1]] = 1; // wall
+        }
+        for (int[] guard : guards) {
+            arr[guard[0]][guard[1]] = 2; // guard
+        }
+        for (int[] guard : guards) {
+            guardseen1(arr, guard[0], guard[1], rowL, colL);
+        }
+    }
+
+    public int countUnguarded(int m, int n, int[][] guards, int[][] walls) {
+        int[][] arr = new int[m][n];
+        guardseen(arr, guards, walls, m, n);
+
+        int count = 0;
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                if (arr[i][j] == 0) count++;
+            }
+        }
+        return count;
+    }
+}
