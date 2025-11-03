@@ -1,0 +1,27 @@
+class Solution {
+    public int minCost(String colors, int[] neededTime) {
+       int removetime = 0;
+        int p1 = 0;
+        int p2 = 0;
+        int max = 0;
+        while (p1 < colors.length()) {
+            while (p2 < colors.length() - 1 && colors.charAt(p2) == colors.charAt(p2 + 1)) {
+                p2++;
+            }
+            for (int i = p1; i <= p2; i++) {
+                removetime = removetime + neededTime[i];
+
+                if (max < neededTime[i]) {
+                    max = neededTime[i];
+                }
+            }
+            
+            removetime = removetime - max;
+            max = 0;
+            p1 = p2 + 1;
+            p2++;
+
+        }
+        return removetime;
+    }
+}
