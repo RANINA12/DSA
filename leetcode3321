@@ -1,0 +1,92 @@
+class Solution {
+
+    long sum = 0;
+    int X;
+ 
+    HashMap<Integer, Integer> freqMap = new HashMap<>();
+    TreeSet<int[]> top = new TreeSet<>((int[] v1, int[] v2)->(v1[0]==v2[0]) ? v1[1]-v2[1] : v1[0]-v2[0]);
+    TreeSet<int[]> bot = new TreeSet<>((int[] v1, int[] v2)->(v1[0]==v2[0]) ? v1[1]-v2[1] : v1[0]-v2[0]);
+
+    public long[] findXSum(int[] nums, int k, int x) {
+
+        X = x;
+
+        long[] res = new long[nums.length-k+1];
+        
+        for (int num : nums) {
+            freqMap.put(num, 0);
+        }
+    
+        int l = 0;
+        int r = 0;
+        while (r < nums.length) {
+            int oldFreq = freqMap.get(nums[r]);
+            int newFreq = oldFreq+1;
+            freqMap.put(nums[r], newFreq);
+            remove(oldFreq, nums[r]);
+            add(newFreq, nums[r]);
+            if ((r-l) == k) {
+                oldFreq = freqMap.get(nums[l]);
+                newFreq = oldFreq-1;
+                freqMap.put(nums[l], newFreq);
+                remove(oldFreq, nums[l]);
+                add(newFreq, nums[l]);
+                l++;
+            }
+            if ((r-l+1) == k) {
+                res[l] = sum;
+            }
+            r++;
+        }
+
+        return res;
+    }
+
+
+    public void add(int freq, int num) {
+        if (freq == 0) {
+            return;
+        }
+        int[] v = new int[]{freq, num};
+
+        if (top.size() < X) {
+            top.add(v);
+            sum+= (long)freq*num;
+            return;
+        }
+
+        int[] first = top.first();
+        if (first[0] < freq || (first[0] == freq && first[1] < num)) {
+            sum -= (long)first[0]*first[1];
+            bot.add(first);
+            top.pollFirst();
+            top.add(v);
+            sum+= (long)freq*num;
+        } else {
+            bot.add(v);
+        }
+
+    }
+
+    public void remove(int freq, int num) {
+        if (freq == 0) {
+            return;
+        }
+        int[] v = new int[]{freq, num};
+        if (bot.contains(v)) {
+            bot.remove(v);
+        } else {
+            top.remove(v);
+            sum -= (long)freq*num;
+            if (bot.size() > 0) {
+                int[] v1 = bot.pollLast();
+                sum += (long)v1[0]*v1[1];
+                top.add(v1);
+            }
+        }
+    }
+
+
+
+}
+
