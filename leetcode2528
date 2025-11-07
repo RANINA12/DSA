@@ -1,0 +1,58 @@
+class Solution {
+    public long maxPower(int[] stations, int r, int k) {
+        int n = stations.length;
+        long best =0;
+        long[] prefixsum = new long[stations.length];
+        long prev = 0;
+        for(int i =0 ; i<n ; i++){
+            prefixsum[i]=stations[i]+prev;
+            prev = prefixsum[i];
+        }
+
+        // power of  each station 
+        long[] power = new long[n];
+        for(int i = 0 ; i<n;i++){
+            int left = Math.max(0, i - r);
+            int right = Math.min(n - 1, i + r);
+            power[i] = prefixsum[right] - (left > 0 ? prefixsum[left - 1] : 0);
+    }
+
+    // now the main function of Binary search in the ans .... 
+      long high = prefixsum[n-1]+k;
+      long low = 0;
+      while(low<=high){
+        long mid = low + (high - low) / 2;
+            if (canReach(power, r, k, mid)) {
+                best = mid;
+                low = mid + 1;
+            } else {
+                high = mid - 1;
+            }
+
+      }
+        return best;
+     
+}
+
+    private boolean canReach(long[] power, int r, long k, long target) {
+        int n = power.length;
+        long used = 0L;
+        long[] diff = new long[n + 1];
+        long curAdd = 0L;
+
+        for (int i = 0; i < n; i++) {
+            curAdd += diff[i];
+            long total = power[i] + curAdd;
+            if (total < target) {
+                long need = target - total;
+                used += need;
+                if (used > k) return false;
+                curAdd += need;
+                int end = Math.min(n, i + 2 * r + 1);
+                diff[end] -= need;
+            }
+        }
+        return true;
+
+}
+}
