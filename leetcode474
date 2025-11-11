@@ -1,0 +1,54 @@
+class Solution {
+    
+      private static int[] count(String s) {
+        int[] count = new int[2];
+        int c0 = 0;
+        int c1 = 0;
+        for (int i = 0; i < s.length(); i++) {
+            char ch = s.charAt(i);
+            if (ch == '1') {
+                c1++;
+            } else {
+                c0++;
+            }
+            count[0] = c0;
+            count[1] = c1;
+
+        }
+        return count;
+    }
+
+    private static int solve(String[] s, int m, int n, int index, int[][][] dp) {
+
+        if (index == s.length) {
+            return 0;
+        }
+        if (dp[index][m][n] != -1) {
+            return dp[index][m][n];
+        }
+        int[] arr = count(s[index]);
+        int zeros = arr[0];
+        int ones = arr[1];
+
+        int pick = 0;
+        if (zeros <= m && ones <= n) {
+
+            pick = 1 + solve(s, m - zeros, n - ones, index + 1, dp);
+
+        }
+
+        int nonpick = solve(s, m, n, index + 1, dp);
+        dp[index][m][n] = Math.max(pick, nonpick);
+        return dp[index][m][n];
+    }
+
+    public int findMaxForm(String[] s, int m, int n) {
+        int[][][] dp = new int[s.length][m+1][n+1];
+       for (int[][] arr2D : dp) {
+            for (int[] arr1D : arr2D) {
+                Arrays.fill(arr1D, -1);
+            }
+        }
+       return solve(s, m, n, 0,dp);
+    }
+}
