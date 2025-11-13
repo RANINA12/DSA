@@ -1,0 +1,22 @@
+class Solution {
+    public int maxOperations(String s) {
+        int op = 0;
+        int C_one = 0;
+
+        for(int i =0 ; i<s.length() ;){
+           if(s.charAt(i)=='1'){
+            C_one++;
+            i++;
+           }
+           else{
+            i++;
+            while(i<s.length() && s.charAt(i)=='0'){
+                i++;
+            }
+            op = op+C_one;
+           }
+        }
+
+        return op;
+    }
+}
