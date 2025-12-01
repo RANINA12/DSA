@@ -1,0 +1,23 @@
+class Solution {
+    private boolean good(long target ,int[]batteries , int n){
+        long  c=0;
+        for(long x: batteries){
+            c=c+Math.min(target, x);
+        }
+        return c>=n *target;
+    }
+    public long maxRunTime(int n, int[] batteries) {
+        long sum=0 ;
+        for(int i=0 ; i<batteries.length ; i++){
+            sum+=batteries[i];
+        }
+        long left =1;
+        long right =  sum/n;
+        while(left<right){
+            long mid=(left+right+1)/2;
+            if(good(mid , batteries ,n)) left=mid;
+            else right=mid-1;
+        }
+        return left;
+    }
+}
