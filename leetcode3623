@@ -1,0 +1,32 @@
+class Solution {
+    static final long MOD = 1000000007;
+public long solve(Map<Integer, Integer> y) {
+    long S = 0;
+    long Q = 0;
+    for (int key : y.keySet()) {
+        long pi = y.get(key);
+        if (pi >= 2) {
+            long v = (pi * (pi - 1) / 2) % MOD;
+            S = (S + v) % MOD;
+            Q = (Q + (v * v) % MOD) % MOD;
+        }
+    }
+    long S2 = (S * S) % MOD;
+    long diff = (S2 - Q + MOD) % MOD;
+    long inv2 = (MOD + 1) / 2;
+    long ans = (diff * inv2) % MOD;
+    return ans;   
+}
+    public int countTrapezoids(int[][] points) {
+        int n = points.length;
+        HashMap<Integer , Integer> y = new HashMap<>();
+        for(int i =0 ; i<n ; i++){
+            int m = points[i][1];
+            if(! y.containsKey(m)) y.put(m,1);
+            else{
+                y.put(m,y.get(m)+1);
+            }
+        }
+        return (int) solve(y);
+    }
+}
