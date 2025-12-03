@@ -1,0 +1,93 @@
+class Solution {
+
+    // ---------- FIX 1: correct fractional slope ----------
+    private String frac(int y, int x) {
+        if (x == 0) return "INF";
+
+        int g = gcd(Math.abs(y), Math.abs(x));
+        y /= g;
+        x /= g;
+
+        // normalize sign so denominator is positive
+        if (x < 0) {
+            y = -y;
+            x = -x;
+        }
+
+        return y + "/" + x;
+    }
+
+    private int gcd(int a, int b) {
+        return (b == 0) ? a : gcd(b, a % b);
+    }
+
+
+    public int countTrapezoids(int[][] points) {
+
+        int n = points.length;
+        int trap = 0;
+        int pg = 0;
+
+        HashMap<String, Integer> slopecount = new HashMap<>();
+        HashMap<String, Integer> linecount = new HashMap<>();
+        HashMap<String, Integer> slopedist = new HashMap<>();
+        HashMap<String, Integer> coldiscount = new HashMap<>();
+
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+
+                if (i == j) continue;   // **fix small issue: skip same point**
+
+                int dx = points[i][0] - points[j][0];
+                int dy = points[i][1] - points[j][1];
+
+                // ---------- FIX 2: proper slope ----------
+                String slope = frac(dy, dx);
+
+                // ---------- FIX 3: proper line intercept representation ----------
+                int A = dy;
+                int B = -dx;
+                int C = dx * points[j][1] - dy * points[j][0];
+
+                int g = gcd(gcd(Math.abs(A), Math.abs(B)), Math.abs(C));
+                if (g != 0) {
+                    A /= g;
+                    B /= g;
+                    C /= g;
+                }
+
+                // normalize line (so sign is consistent)
+                if (A < 0 || (A == 0 && B < 0)) {
+                    A = -A;
+                    B = -B;
+                    C = -C;
+                }
+
+                String intercept = A + "," + B + "," + C;
+
+                // distance (keep your logic unchanged)
+                int dist = dx * dx + dy * dy;
+
+                // ---------- FIX 4: change linekey: DO NOT use distance ----------
+                String linekey = slope + "|" + intercept;
+
+                // leave your other keys untouched
+                String slopeDistKey = slope + "|" + dist;
+                String collinearDistkey = slope + "|" + intercept + dist;
+
+                // same logic as you wrote
+                slopecount.put(slope, slopecount.getOrDefault(slope, 0) + 1);
+                linecount.put(linekey, linecount.getOrDefault(linekey, 0) + 1);
+
+                trap += slopecount.get(slope) - linecount.get(linekey);
+
+                slopedist.put(slopeDistKey, slopedist.getOrDefault(slopeDistKey, 0) + 1);
+                coldiscount.put(collinearDistkey, coldiscount.getOrDefault(collinearDistkey, 0) + 1);
+
+                pg += slopedist.get(slopeDistKey) - coldiscount.get(collinearDistkey);
+            }
+        }
+
+        return trap - pg / 2;
+    }
+}
