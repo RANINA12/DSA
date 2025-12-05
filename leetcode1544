@@ -1,0 +1,25 @@
+class Solution {
+    public String makeGood(String s) {
+        Stack<Character> st =new Stack<>();
+        StringBuilder a = new StringBuilder();
+        for(int i =0 ; i<s.length(); i++){
+           char ch = s.charAt(i);
+            if(st.isEmpty()){
+                st.push(ch);     
+            }
+            else{
+                char top = st.peek();
+                if(ch!=top && Character.toLowerCase(ch)==Character.toLowerCase(top)){
+                    st.pop();
+                }
+                else{
+                    st.push(ch);
+                }
+            }
+        }
+        for(char c:st){a
+            a.append(c);
+        }
+        return a.toString();
+    }
+}
