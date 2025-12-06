@@ -1,0 +1,45 @@
+class Solution {
+    public String addrem(String num , int i , StringBuilder s ,int rem){
+            while(i>=0){
+                int n1 = num.charAt(i)-'0';
+                int output = n1+rem;
+                rem= output/10;
+                output= output%10;
+                s.insert(0,String.valueOf(output));
+                i--;
+            }
+            if(rem==0){
+        return s.toString();}
+        else{
+            s.insert(0,rem);
+            return s.toString();
+        }
+    }
+    public String addStrings(String num1, String num2) {
+        int i = num1.length()-1;
+        int j = num2.length()-1;
+        int rem =0;
+        StringBuilder s= new StringBuilder();
+        while(i>=0 && j>=0){
+            int n1 = num1.charAt(i) -'0';
+            int n2 = num2.charAt(j)-'0';
+            int output = n2+n1+rem;
+            rem = output/10;
+            output = output%10;
+            s.insert(0,String.valueOf(output));
+            i--;
+            j--;
+        } 
+       if(i==j){ 
+        if(rem==0){
+        return s.toString();}
+        else{
+            s.insert(0,rem);
+            return s.toString();
+        }
+       }
+       else{
+        return i== -1 ? addrem(num2 , j , s,rem) : addrem(num1 , i , s,rem);
+       }
+    }
+}
