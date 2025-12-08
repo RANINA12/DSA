@@ -1,0 +1,19 @@
+class Solution {
+    private boolean perfect(int num , int k){
+        double a = Math.sqrt(num);
+        double b = Math.floor(a);
+        return ((a - b) == 0 && (int) b <=k);   
+    }
+    public int countTriples(int n) {
+    int ans = 0;
+        for(int i = 1 ; i<= n ;i++){
+            for(int j =i+1 ; j<=n ;j++){
+                int a = (i*i) + (j*j);
+                if(perfect(a , n)){
+                    ans+=2;
+                }
+            }
+        }
+        return ans;
+    }
+}
