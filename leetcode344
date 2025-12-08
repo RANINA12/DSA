@@ -1,0 +1,31 @@
+class Solution {
+    private void swap(int p1 , int p2 , char[] c){
+     char temp = c[p1];
+     c[p1]=c[p2];
+     c[p2]=temp;
+    }
+    public String reverseVowels(String s) {
+        char[] c= s.toCharArray();
+        int p1 = 0;
+        int p2 = c.length-1;
+        String v = "aeiouAEIOU";
+        while(p1<p2){
+          String ch  = String.valueOf(c[p1]);
+          String ch2  = String.valueOf(c[p2]);
+          if(v.contains(ch) && v.contains(ch2)){
+            swap(p1 ,p2 , c);
+            p1++;
+            p2--;
+          }
+          else{
+            if(v.contains(ch)) p2--;
+            else if (v.contains(ch2)) p1++;
+            else {
+                p2--;
+                p1++;
+            }
+          }
+        }
+        return  new String(c);
+    }
+}
