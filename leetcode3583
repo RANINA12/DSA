@@ -1,0 +1,21 @@
+class Solution {
+    public int specialTriplets(int[] nums) {
+        long ans =0;
+        int Mod = 1000000007;
+       HashMap<Integer , Integer> Rc = new HashMap<>();
+       HashMap<Integer , Integer> Lc = new HashMap<>();
+        for(int j =0;j<nums.length ; j++){
+         Rc.put(nums[j], Rc.getOrDefault(nums[j], 0) + 1);
+        }
+        for(int i =0 ; i<nums.length ; i++){
+            Rc.put(nums[i], Rc.get(nums[i]) - 1);
+            int a = nums[i]*2;
+            if(Lc.containsKey(a) && Rc.containsKey(a) ){
+                ans = (ans + ((long)Lc.get(a) * Rc.get(a)) % Mod) % Mod;
+            }
+            Lc.put(nums[i], Lc.getOrDefault(nums[i], 0) + 1);
+            
+        }
+         return (int)ans;
+    }
+}
