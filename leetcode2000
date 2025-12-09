@@ -1,0 +1,22 @@
+class Solution {
+    private String solve(String s ,  int j){
+        char [] ch = s.toCharArray();
+        int i =0;
+        while(i<j){
+            char temp= ch[i];
+            ch[i]=ch[j];
+            ch[j]=temp;
+            i++;
+            j--;
+        }
+       return  new String(ch);
+    }
+    public String reversePrefix(String word, char ch) {
+        for(int i =0 ; i<word.length();i++){
+            if(ch == word.charAt(i)){
+                return  solve(word,i);
+            }
+        }
+        return  word;
+    }
+}
