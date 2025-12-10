@@ -1,0 +1,26 @@
+class Solution {
+    static final int mod = 1000000007;
+private int solve(int n){
+    long ans = 1;
+    for(int i = 1; i <= n; i++){
+        ans = (ans * i) % mod;
+    }
+    return (int) ans;
+}
+
+    public int countPermutations(int[] complexity) {
+        boolean Allvalid  = true; 
+        int unlock = complexity[0];
+        for(int i =1 ; i<complexity.length ; i++){
+            if(unlock <complexity[i]) continue;
+            else{
+                Allvalid = false;
+                break;
+            }
+        }
+        if(Allvalid){
+            return  solve(complexity.length-1);
+        }
+        else return 0;
+    }
+}
