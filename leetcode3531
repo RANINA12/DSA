@@ -1,0 +1,28 @@
+
+class Solution {
+    public int countCoveredBuildings(int n, int[][] buildings) {
+        Map<Integer, TreeSet<Integer>> rowMap = new HashMap<>();
+        Map<Integer, TreeSet<Integer>> colMap = new HashMap<>();
+        for (int[] b : buildings) {
+            int r = b[0];
+            int c = b[1];
+            rowMap.computeIfAbsent(r, k -> new TreeSet<>()).add(c);
+            colMap.computeIfAbsent(c, k -> new TreeSet<>()).add(r);
+        }
+        int count = 0;
+        for (int[] b : buildings) {
+            int r = b[0];
+            int c = b[1];
+            TreeSet<Integer> rowSet = rowMap.get(r);
+            TreeSet<Integer> colSet = colMap.get(c);
+            Integer left = rowSet.lower(c);
+            Integer right = rowSet.higher(c);
+            Integer up = colSet.lower(r);
+            Integer down = colSet.higher(r);
+            if (left != null && right != null && up != null && down != null) {
+                count++;
+            }
+        }
+        return count;
+    }
+}
