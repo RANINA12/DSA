@@ -1,0 +1,39 @@
+class Solution {
+    private boolean solve(String s1 ,String s2){
+        if(s2.length()==0) return false;
+       for(int i =0 ; i<s2.length() ; i++){
+        if(! s1.contains(String.valueOf(s2.charAt(i)))) return false;
+       }
+       return true;
+    }
+    public List<String> validateCoupons(String[] code, String[] businessLine, boolean[] isActive) {
+        List<String> business = new ArrayList<>();
+        List<List<String>> AnsList = new ArrayList<>();
+        List<String> ans = new ArrayList<>();
+        business.add("grocery");
+        business.add("pharmacy");
+        business.add("restaurant");
+        business.add("electronics");
+        String codecheck = "qQWwEeRrTtYyUuIiOoPpAaSsDdFfGghHjJkKlLZzXxCcVvBbNnMm1234567890_";
+        for(int i = 0 ;i<code.length ; i++){
+            String a = code[i];
+            String b = businessLine[i];
+            boolean c = solve(codecheck ,a);
+            if(business.contains(b) && isActive[i] && c){
+                List<String> temp = new  ArrayList<>();
+                temp.add(a);
+                temp.add(b);
+                AnsList.add(temp);
+            }
+        }
+        AnsList.sort((a,b)->{
+            String s1 = a.get(1);
+            String s2 = b.get(1);
+            return s1.equals(s2) ? a.get(0).compareTo(b.get(0)) : s1.compareTo(s2);
+        });
+        for(int i =0 ;i<AnsList.size() ; i++){
+            ans.add(AnsList.get(i).get(0));
+        }
+        return ans;
+    }
+}
