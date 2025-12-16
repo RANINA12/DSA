@@ -1,0 +1,37 @@
+class Solution {
+    private boolean isValid(String seg) {
+        if (seg.length() > 1 && seg.charAt(0) == '0') return false;
+        int val = Integer.parseInt(seg);
+        return val >= 0 && val <= 255;
+    }
+    private void part4(List<String> ans, String currstr, int curr, String s) {
+        if (curr >= s.length()) return;
+        String seg = s.substring(curr);
+        if (!isValid(seg)) return;
+        ans.add(currstr + seg);
+    }
+    private void part3(List<String> ans, String currstr, int curr, String s) {
+        for (int i = curr; i < s.length() && i < curr + 3; i++) {
+            String seg = s.substring(curr, i + 1);
+            if (!isValid(seg)) continue;
+            part4(ans, currstr + seg + ".", i + 1, s);
+        }
+    }
+    private void part2(List<String> ans, String currstr, int curr, String s) {
+        for (int i = curr; i < s.length() && i < curr + 3; i++) {
+            String seg = s.substring(curr, i + 1);
+            if (!isValid(seg)) continue;
+            part3(ans, currstr + seg + ".", i + 1, s);
+        }
+    }
+    public List<String> restoreIpAddresses(String s) {
+        List<String> ans = new ArrayList<>();
+        if (s.length() < 4 || s.length() > 12) return ans;
+        for (int i = 0; i < s.length() && i < 3; i++) {
+            String seg = s.substring(0, i + 1);
+            if (!isValid(seg)) continue;
+            part2(ans, seg + ".", i + 1, s);
+        }
+        return ans;
+    }
+}
