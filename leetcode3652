@@ -1,0 +1,21 @@
+class Solution {
+    public long maxProfit(int[] prices, int[] strategy, int k) {
+        int n = prices.length;
+        long[] prefixsum = new long[n +1];
+        long[] sell = new long[n+1];
+        for(int i =0 ; i<prices.length ;i++){
+           prefixsum[i+1]= prefixsum[i] + strategy[i]*prices[i];
+           sell[i+1]= sell[i]+prices[i];
+        }
+        long ans  = prefixsum[n];
+        for(int i = k-1; i<n ;i++){
+            long leftsum , middlesum , rightsum  = 0;
+            leftsum = prefixsum[i-k+1] - prefixsum[0];
+            middlesum = sell[i+1] - sell[(i+1) -k/2];
+             rightsum = prefixsum[n] - prefixsum[i+1];
+            ans = Math.max(ans , leftsum + middlesum  + rightsum);
+        }
+
+        return ans;
+    }
+}
