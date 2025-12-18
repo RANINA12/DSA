@@ -1,0 +1,11 @@
+class Solution {
+    public int minStartValue(int[] nums) {
+        int diff =0;
+        int ans = 0;
+        for(int i =0 ; i<nums.length ; i++){
+          diff = diff+nums[i];
+          ans = Math.min(ans , diff);
+        }
+        return Math.abs(ans)+1;
+    }
+}
