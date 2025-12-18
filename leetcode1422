@@ -1,0 +1,17 @@
+class Solution {
+    public int maxScore(String s) {
+        int n = s.length();
+        int C_one=0;
+        int C_zero=0;
+        int ans = 0;
+        for(int i =0 ;i<n ;i++){
+            if(s.charAt(i)=='1') C_one++;
+        }
+        for(int i =0 ; i<n-1 ; i++){
+           if(s.charAt(i)=='0') C_zero++;
+           else C_one--;
+           ans= Math.max(ans , C_zero+C_one);
+        }
+        return ans;
+    }
+}
