@@ -1,0 +1,17 @@
+class Solution {
+    public int[] singleNumber(int[] nums) {
+         int xor = 0;
+        for(int a : nums){
+           xor^=a;
+        }
+        int xor = ((xor-1) & xor) ^ xor;
+        int b1 =0;
+        int b2=0;
+        for(int a : nums){
+            if((xor & a)!=0) b1^=a;
+            else b2^=a;
+        }
+       return new int[]{b1, b2};
+
+    }
+}
