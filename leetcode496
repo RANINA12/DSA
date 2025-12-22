@@ -1,0 +1,24 @@
+class Solution {
+    private int greater(int i , int curr , int[] arr){
+        int l = arr.length;
+       for(int j = i ; j <l ; j++){
+        if(arr[j] > curr) return arr[j];
+       }
+        return -1 ;
+    }
+    private int find(int n , int[] arr){
+        int l = arr.length;
+       for(int i =0 ; i< l; i++){
+        if(arr[i] == n) return greater(i , arr[i] , arr) ;
+       }
+       return 0 ;
+    }
+    public int[] nextGreaterElement(int[] nums1, int[] nums2) {
+        int n = nums1.length;
+        int[] arr = new int[n];
+        for(int i =0 ; i < n ; i++){
+           arr[i]=  find(nums1[i] , nums2);
+        }
+        return arr ;
+    }
+}
