@@ -1,0 +1,33 @@
+class Solution {
+    private boolean notban(String[] banned , String s){
+         for(int i =0 ; i<banned.length ;i++){
+            if(banned[i].equals(s)) return false;
+         }
+         return true;
+    }
+    private boolean validword(String s){
+        if(!s.equals("?") && !s.equals("!") && !s.equals("'") && !s.equals(",") && !s.equals(".") && !s.equals(";")) return true;
+        return  false;
+    }
+    public String mostCommonWord(String paragraph, String[] banned) {
+       String[] words = paragraph.toLowerCase().split("[\\s\\?\\.,'!;]+");
+        HashMap <String , Integer> map = new HashMap<>();
+       for(int i =0 ; i<words.length ; i++){
+          String w = words[i];
+          if(validword(w)){
+           map.put(w , map.getOrDefault(w,0)+1); 
+          }
+       }
+        String ans = "";
+        int max =0;
+       for(String a : map.keySet()){
+        if(notban(banned ,a)){
+            if(max < map.get(a)){
+                max = map.get(a);
+                ans = a ;
+            }
+        }
+       }
+      return  ans ;
+    }
+}
