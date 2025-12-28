@@ -1,0 +1,13 @@
+class Solution {
+    public int countNegatives(int[][] grid) {
+        int count=0;
+        for(int[] a : grid){
+             int p = a.length-1;
+             while(p >=0 && a[p]<0){
+                p--;
+             }
+             count+= a.length - p - 1;
+        }
+        return count;
+    }
+}
