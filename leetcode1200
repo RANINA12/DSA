@@ -1,0 +1,26 @@
+class Solution {
+    public List<List<Integer>> minimumAbsDifference(int[] arr) {
+        Arrays.sort(arr);
+        int min = Integer.MAX_VALUE;
+        for(int i =0; i< arr.length-1 ; i++){
+            
+            min = Math.min(min , arr[i+1]-arr[i]);
+        }
+
+        // Include all the pair of where diffrence is min 
+
+        List<List<Integer>> list = new ArrayList<>();
+
+        for(int i =0 ; i<arr.length-1 ; i++){
+            List<Integer> li = new ArrayList<>();
+            if(arr[i+1]-arr[i]==min){
+                li.add(arr[i]);
+                li.add(arr[i+1]);
+                list.add(li);
+            }
+
+        }
+
+        return list;
+    }
+}
