@@ -1,0 +1,39 @@
+class Solution {
+    public void merge(int[] nums1, int m, int[] nums2, int n) {
+     
+        for(int i =0 ;i<n;i++){
+            nums1[i+m]=nums2[i];
+        }
+        int low = 0;
+        int high = nums1.length-1;
+        int mid = m-1;
+        int p1 =low;
+        int p2 = mid+1;
+        List<Integer> li = new ArrayList<>();
+        while(p1<=mid && p2<=high){
+            if(nums1[p1]>nums1[p2]){
+                li.add(nums1[p2]);
+                p2++;
+                // add in the list
+            }
+            else{
+                  li.add(nums1[p1]);
+                p1++;
+            }
+        }
+        while(p1<=mid){
+            // add p1
+            li.add(nums1[p1]);
+            p1++;
+        }
+        while(p2<=high){
+            //add p2
+            li.add(nums1[p2]);
+            p2++;
+        }
+        System.out.print(li);
+        for(int i =0 ; i<nums1.length ; i++){
+            nums1[i] = li.get(i);
+        }
+    }
+}
