@@ -1,0 +1,20 @@
+class Solution {
+    public int reverseBits(int n) {
+        int[] bits = new int[32];
+        int i =31;
+         while(n >= 1 && i>=0){
+            if(n%2==0) bits[i]=0;
+            else bits[i]=1;
+            n=n/2;
+            i--;
+            
+         }
+            int rev = 0;
+         for(int j = 0 ; j<32; j++){
+              if(bits[j]==1){
+              rev = (int) Math.pow(2,j) + rev;}
+         }
+
+         return rev;
+    }
+}
