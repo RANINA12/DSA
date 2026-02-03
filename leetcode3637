@@ -1,0 +1,23 @@
+class Solution {
+    public boolean isTrionic(int[] nums) {
+        boolean firstphase = false;
+        boolean secondphase = false ;
+        boolean thirdphase = false;
+       int i =0;
+       while(i<nums.length-1 && nums[i]<nums[i+1]){
+        firstphase=true;
+        i++;
+       }
+
+       while(i<nums.length-1 && nums[i]>nums[i+1]){
+        secondphase = true;
+        i++;
+       }
+
+         while(i<nums.length-1 && nums[i]<nums[i+1]){
+        thirdphase=true;
+        i++;
+       }
+        return firstphase && secondphase && thirdphase && (i==nums.length-1) ;
+    }
+}
