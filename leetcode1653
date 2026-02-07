@@ -1,0 +1,24 @@
+class Solution {
+    public int minimumDeletions(String s) {
+        
+        int countB = 0;
+        int countA = 0;
+        int ans = Integer.MAX_VALUE;
+        for(int i = 0 ; i<s.length();i++){
+            if(s.charAt(i)=='a') countA++;
+        }
+           if(countA==0) return 0;
+        for(int i =0 ; i<s.length();i++){
+            if(s.charAt(i)=='b'){
+                ans = Math.min(ans , countA+countB);
+                countB++;
+            }
+            else{
+                countA--;
+                ans = Math.min(ans, countA+countB);
+            }
+        }
+
+        return ans;
+    }
+}
