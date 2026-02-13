@@ -1,0 +1,75 @@
+class Solution {
+    public int longestBalanced(String s) {
+        int maxLen = 0;
+        maxLen = Math.max(maxLen, solveOne(s, 'a'));
+        maxLen = Math.max(maxLen, solveOne(s, 'b'));
+        maxLen = Math.max(maxLen, solveOne(s, 'c'));
+        maxLen = Math.max(maxLen, solveThree(s));
+        maxLen = Math.max(maxLen, solveStrictTwo(s, 'a', 'b', 'c'));
+        maxLen = Math.max(maxLen, solveStrictTwo(s, 'b', 'c', 'a'));
+        maxLen = Math.max(maxLen, solveStrictTwo(s, 'a', 'c', 'b'));
+
+        return maxLen;
+    }
+
+    private int solveThree(String s) {
+        Map<String, Integer> map = new HashMap<>();
+        map.put("0#0", -1);
+        int a = 0, b = 0, c = 0;
+        int res = 0;
+
+        for (int i = 0; i < s.length(); i++) {
+            char ch = s.charAt(i);
+            if (ch == 'a') a++;
+            else if (ch == 'b') b++;
+            else if (ch == 'c') c++;
+            String key = (b - a) + "#" + (c - a);
+            if (map.containsKey(key)) {
+                res = Math.max(res, i - map.get(key));
+            } else {
+                map.put(key, i);
+            }
+        }
+        return res;
+    }
+
+    private int solveStrictTwo(String s, char c1, char c2, char forbidden) {
+        Map<Integer, Integer> map = new HashMap<>();
+        map.put(0, -1);
+        int diff = 0;
+        int res = 0;
+
+        for (int i = 0; i < s.length(); i++) {
+            char ch = s.charAt(i);
+            if (ch == forbidden) {
+                map.clear();
+                diff = 0;
+                map.put(0, i);
+            } else {
+                if (ch == c1) diff++;
+                else if (ch == c2) diff--;
+                if (map.containsKey(diff)) {
+                    res = Math.max(res, i - map.get(diff));
+                } else {
+                    map.put(diff, i);
+                }
+            }
+        }
+        return res;
+    }
+    
+    private int solveOne(String s, char target) {
+        int currentRun = 0;
+        int maxRun = 0;
+        
+        for (int i = 0; i < s.length(); i++) {
+            if (s.charAt(i) == target) {
+                currentRun++;
+            } else {
+                currentRun = 0;
+            }
+            maxRun = Math.max(maxRun, currentRun);
+        }
+        return maxRun;
+    }
+}
