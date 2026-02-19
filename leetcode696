@@ -1,0 +1,20 @@
+class Solution {
+    public int countBinarySubstrings(String s) {
+        List<Integer> store = new ArrayList<>();
+        int count =1;
+        for(int i =0 ; i<s.length()-1; i++){
+            if(s.charAt(i)==s.charAt(i+1)) count++;
+            else {
+                store.add(count);
+                count=1;
+            }
+        }
+         store.add(count);
+        int total =0;
+        for(int i =0; i<store.size()-1 ;i++){
+           total = total + Math.min(store.get(i) , store.get(i+1));
+        }
+
+        return total;
+    }
+}
