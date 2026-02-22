@@ -1,0 +1,17 @@
+class Solution {
+    public int binaryGap(int num) {
+        int i =0;
+        int current =-1;
+        int maxGap = 0 ;
+        while(num>0){
+        if( (num & 1)==1){
+         if(current!=-1)   maxGap = Math.max(maxGap , i-current);
+            current = i;
+        }
+         num = num >> 1;
+         i++;
+        }
+        
+        return maxGap ;
+    }
+}
