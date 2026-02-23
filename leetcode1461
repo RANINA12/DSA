@@ -1,0 +1,15 @@
+class Solution {
+    public boolean hasAllCodes(String s, int k) {
+        // first generate all the possible combination with k
+        int n = s.length()-(k-1);
+        HashSet<String> set = new HashSet<>();
+        for(int i = 0 ; i<n;i++){
+            String s1 = s.substring(i , k+i);
+            set.add(s1);
+        }
+
+        // possible 
+        if(set.size()== 1 << k) return true;
+        else return  false;
+    }
+}
