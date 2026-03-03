@@ -1,0 +1,31 @@
+class Solution {
+
+    public void invert(StringBuilder s) {
+        for (int i = 0; i < s.length(); i++) {
+            if (s.charAt(i) == '1')
+                s.setCharAt(i, '0');
+            else
+                s.setCharAt(i, '1');
+        }
+    }
+
+    public String solve(StringBuilder s) {
+        StringBuilder temp = new StringBuilder(s);
+        invert(temp);
+        temp.reverse();
+        return temp.toString();
+    }
+
+    public char findKthBit(int n, int k) {
+
+        StringBuilder s = new StringBuilder("0");
+
+        for (int i = 2; i <= n; i++) {
+            String sb = solve(s);
+            s.append("1");
+            s.append(sb);
+        }
+
+        return s.charAt(k - 1);
+    }
+}
