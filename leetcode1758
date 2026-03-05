@@ -1,0 +1,13 @@
+class Solution {
+    public int minOperations(String s) {
+        int pat1 = 0; 
+        int pat2 = 0; 
+        for(int i = 0; i < s.length(); i++){
+            char expt1 = (i % 2 == 0) ? '0' : '1';
+            char expt2 = (i % 2 == 0) ? '1' : '0';
+            if(s.charAt(i) != expt1) pat1++;
+            if(s.charAt(i) != expt2) pat2++;
+        }
+        return Math.min(pat1, pat2);
+    }
+}
