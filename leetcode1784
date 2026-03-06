@@ -1,0 +1,17 @@
+class Solution {
+    public boolean checkOnesSegment(String s) {
+            int op = 1;
+            boolean one = true ;
+          for(int i = 1 ;i<s.length();i++){
+             if(s.charAt(i)=='1'){
+                if(!one) {
+                    op++;
+                    one = true ;
+                }
+             }
+             else one = false ;
+          }
+
+          return  op==1 ?  true : false ;
+    }
+}
