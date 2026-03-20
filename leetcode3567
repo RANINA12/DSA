@@ -1,0 +1,49 @@
+class Solution {
+
+    int solve(int startR, int endR, int startC, int endC, int[][] grid) {
+        int min = Integer.MAX_VALUE;
+
+        List<Integer> li = new ArrayList<>();
+        HashSet<Integer> set = new HashSet<>();
+
+        for (int i = startR; i <= endR; i++) {
+            for (int j = startC; j <= endC; j++) {
+                set.add(grid[i][j]);
+            }
+        }
+
+        for (int a : set) {
+            li.add(a);
+        }
+
+        for (int i = 0; i < li.size(); i++) {
+            for (int j = i + 1; j < li.size(); j++) {
+                min = Math.min(min, Math.abs(li.get(i) - li.get(j)));
+            }
+        }
+
+        return min == Integer.MAX_VALUE ? 0 : min;
+    }
+
+    public int[][] minAbsDiff(int[][] grid, int k) {
+
+        int row = grid.length;
+        int col = grid[0].length;
+
+        int[][] ans = new int[row - k + 1][col - k + 1];
+
+        for (int i = 0; i <= row - k; i++) {
+            for (int j = 0; j <= col - k; j++) {
+
+                int startR = i;
+                int endR = i + k - 1;
+                int startC = j;
+                int endC = j + k - 1;
+
+                ans[i][j] = solve(startR, endR, startC, endC, grid);
+            }
+        }
+
+        return ans;
+    }
+}
