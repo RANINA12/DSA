@@ -1,48 +1,31 @@
 class Solution {
     public boolean canPartitionGrid(int[][] grid) {
-        int row =  grid.length;
+        int row = grid.length;
         int col = grid[0].length;
-        long[] sum1 = new long[row];
-        long[] sum2 = new long[col];
-        for(int i =0 ; i< row ; i++){
-            long a =0;
-            for(int j = 0 ; j<col ;j++){
-                a= a+ grid[i][j];
+        long total = 0;
+        for(int i=0;i<row;i++){
+            for(int j=0;j<col;j++){
+                total += grid[i][j];
             }
-            sum1[i] = a;
         }
-
-         for(int i =0 ; i< col ; i++){
-            long a =0;
-            for(int j = 0 ; j<row ;j++){
-                a= a+ grid[j][i];
+        long curr = 0;
+        for(int i=0;i<row;i++){
+            long rowsum = 0;
+            for(int j=0;j<col;j++){
+                rowsum += grid[i][j];
             }
-            sum2[i] = a;
+            curr += rowsum;
+            if(curr == total - curr) return true;
         }
-
-        long totalsum1 = 0;
-        long totalsum2 =0 ;
-
-        for(int i = 0 ; i<sum1.length ; i++){
-            totalsum1 += sum1[i]; 
+        curr = 0;
+        for(int j=0;j<col;j++){
+            long colsum = 0;
+            for(int i=0;i<row;i++){
+                colsum += grid[i][j];
+            }
+            curr += colsum;
+            if(curr == total - curr) return true;
         }
-
-        for(int i = 0 ; i<sum2.length; i++){
-            totalsum2 += sum2[i];
-        }
-
-        long currsum1 = 0;
-        long currsum2 =0;
-
-         for(int i = 0 ; i<sum1.length ; i++){
-            currsum1 += sum1[i];
-            if(currsum1 == totalsum1-currsum1) return true;
-        }
-          for(int i = 0 ; i<sum2.length ; i++){
-            currsum2 += sum2[i];
-            if(currsum2 == totalsum2-currsum2) return true;
-        }
-
         return false;
     }
 }
