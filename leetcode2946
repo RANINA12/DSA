@@ -1,0 +1,24 @@
+class Solution {
+    public boolean areSimilar(int[][] arr, int k) {
+        int row = arr.length;
+        int col = arr[0].length;
+
+        k = k % col; 
+
+        for (int i = 0; i < row; i++) {
+            for (int j = 0; j < col; j++) {
+                if (i % 2 == 0) {
+                    if (arr[i][j] != arr[i][(j + k) % col]) {
+                        return false;
+                    }
+                } else {
+                    if (arr[i][j] != arr[i][(j - k + col) % col]) {
+                        return false;
+                    }
+                }
+            }
+        }
+
+        return true;
+    }
+}
