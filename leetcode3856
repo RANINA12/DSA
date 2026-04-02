@@ -1,0 +1,19 @@
+class Solution {
+    public String trimTrailingVowels(String s) {
+
+        HashSet<Character> set = new HashSet<>();
+        set.add('a');
+        set.add('e');
+        set.add('i');
+        set.add('o');
+        set.add('u');
+
+        for(int i=s.length()-1 ; i>=0 ;i--){
+            char ch = s.charAt(i);
+
+            if(!set.contains(ch))  return s.substring(0, i+1);
+        }
+          
+        return "";
+    }
+}
