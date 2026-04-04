@@ -1,0 +1,21 @@
+class Solution {
+    public String decodeCiphertext(String encodedText, int rows) {
+        int n = encodedText.length();
+        int cols = n / rows;
+        StringBuilder sb = new StringBuilder();
+        for (int col = 0; col < cols; col++) {
+            int r = 0, c = col;
+            while (r < rows && c < cols) {
+                sb.append(encodedText.charAt(r * cols + c));
+                r++;
+                c++;
+            }
+        }
+  
+        // while (sb.length() > 0 && sb.charAt(sb.length() - 1) == ' ') {
+        //     sb.deleteCharAt(sb.length() - 1);
+        // }
+
+        return sb.toString().stripTrailing();
+    }
+}
