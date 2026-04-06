@@ -1,0 +1,36 @@
+class Solution {
+    public int mirrorFrequency(String s) {
+        Map<Character, Integer> map = new HashMap<>();
+        for (int i = 0; i < s.length(); i++) {
+            char ch = s.charAt(i);
+            char inv;
+            if (ch >= 'a' && ch <= 'z') {
+                inv = (char) ('z' - (ch - 'a'));
+            } else {
+                inv = (char) ('9' - (ch - '0'));
+            }
+            map.put(ch, map.getOrDefault(ch, 0) + 1);
+            map.putIfAbsent(inv, 0);
+        }
+
+        int sum = 0;
+
+        for (char ch : map.keySet()) {
+            char inv;
+
+            if (ch >= 'a' && ch <= 'z') {
+                inv = (char) ('z' - (ch - 'a'));
+            } else {
+                inv = (char) ('9' - (ch - '0'));
+            }
+
+            int a = map.getOrDefault(ch, 0);
+            int b = map.getOrDefault(inv, 0);
+            if (ch <= inv) {
+                sum += Math.abs(a - b);
+            }
+        }
+
+        return sum;
+    }
+}
