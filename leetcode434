@@ -1,0 +1,23 @@
+class Solution {
+    public int countSegments(String s) {
+        if(s.length()==0) return 0;
+        int count = 0;
+        int i = 0;
+        boolean c = true ;
+
+        while(s.length() > i){
+            c= true;
+           while(s.length() > i && s.charAt(i)!=' '){
+            if(c) {
+                count++;
+                c=false;
+            }
+            i++;
+           }
+           while(s.length() > i && s.charAt(i)==' ') i++;
+        }
+
+        return count;
+        
+    }
+}
