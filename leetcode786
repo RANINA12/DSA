@@ -1,0 +1,25 @@
+class Solution {
+    public int[] kthSmallestPrimeFraction(int[] arr, int k) {
+        int n = arr.length ;
+        int sz = (n * (n-1) )/2 ;
+        int[][] frac = new int[sz][2];
+         int k1 =0;
+        for(int i = 0 ; i<n ; i++){
+            for(int j = i+1 ; j<n ;j++){
+               frac[k1][0] = arr[i] ;
+               frac[k1][1] = arr[j]; 
+               k1++;
+            }
+        }
+
+        Arrays.sort(frac, (a, b) -> {
+    return a[0] * b[1] - b[0] * a[1];});
+    
+        int[] m = new int[2];
+
+        m[0] = frac[k-1][0];
+        m[1] = frac[k-1][1];
+
+        return m ;
+    }
+}
