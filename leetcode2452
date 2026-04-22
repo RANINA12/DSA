@@ -1,0 +1,21 @@
+class Solution {
+     void solve(String s , String[] dictionary , List<String> ans){
+        for(String sb : dictionary){
+             int count= 0;
+            for(int i = 0 ; i<sb.length() ; i++){
+                if(sb.charAt(i) != s.charAt(i)) count++;
+            }
+            if(count<=2){ 
+                ans.add(s);
+                break ;
+            }
+        }
+    }
+    public List<String> twoEditWords(String[] queries, String[] dictionary) {
+        List<String> ans = new ArrayList<>();
+        for(String  s : queries){
+          solve(s, dictionary, ans) ;
+        }
+        return ans;
+    }
+}
