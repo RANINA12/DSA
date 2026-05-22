@@ -1,0 +1,24 @@
+class Solution {
+  void solve(int a, List<Integer> num) {
+    String s = String.valueOf(a);
+
+    for (int i = 0; i < s.length(); i++) {
+        num.add(Integer.parseInt(String.valueOf(s.charAt(i))));
+    }
+}
+    public int[] separateDigits(int[] nums) {
+        List<Integer> num = new ArrayList<>();
+
+        for(int i = 0 ; i<nums.length ; i++){
+            solve(nums[i] , num);
+        }
+
+        int[] arr = new int[num.size()];
+
+        for(int i = 0; i<arr.length ; i++){
+            arr[i]= num.get(i);
+        }
+
+        return arr;
+    }
+}
