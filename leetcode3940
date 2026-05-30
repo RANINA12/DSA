@@ -1,0 +1,31 @@
+class Solution {
+    public int[] limitOccurrences(int[] nums, int k) {
+   TreeMap<Integer, Integer> map = new TreeMap<>();
+        for (int i = 0; i < nums.length; i++) {
+            map.put(nums[i], map.getOrDefault(nums[i], 0) + 1);
+        }
+
+        List<Integer> li = new ArrayList<>();
+
+        for(int a : map.keySet()){
+            int temp = map.get(a);
+
+            if(temp<=k){
+                for(int j = 0 ; j<temp ; j++){
+                    li.add(a);
+                }
+            }
+            else{
+                for(int j = 0 ; j<k ; j++){
+                    li.add(a);
+                }
+            }
+        }
+        int[] arr = new int[li.size()];
+        for(int i = 0 ; i<li.size() ;i++){
+            arr[i] = li.get(i);
+        }
+
+        return arr;
+    }
+}
