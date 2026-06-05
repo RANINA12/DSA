@@ -1,0 +1,18 @@
+class Solution {
+    public int minimumCost(int[] cost) {
+        Arrays.sort(cost);
+        int sum =0;
+        int p =0;
+        for(int i = cost.length -1; i>=0;i--){
+            if(p!=2){
+                sum = sum +cost[i];
+                p++;
+            }
+            else{
+                p=0;
+            }
+        }
+
+        return sum ;
+    }
+}
